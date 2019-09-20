@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 3) do
   end
 
   create_table "user_movies", force: :cascade do |t|
-    t.integer "move_id"
+    t.integer "movie_id"
     t.integer "user_id"
   end
 
