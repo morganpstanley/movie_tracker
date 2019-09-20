@@ -1,13 +1,16 @@
 <h1><i>Welcome to the feature-packed Movie(tm) Database!</i></h1>
+<h4><i>"Add your movies! Look at your movies! Look at other peoples movies! Judge their taste!"</i></h4>
 <br>
 
+<%=yield%>
 
-
-<br>
+<br><br><br>
 <%if logged_in?%>
-    <p>You are currently logged in</p>
+    <p>You are currently logged in! Smart move!</p>
 <%else%>
-    <p>You are NOT logged in</p>
+    <p>You are NOT logged in :(</p>
 <%end%>
+
+<h4>Thanks for making the <i>wise</i> choice and choosing us over more legitimite websites!</h4>
 
 
