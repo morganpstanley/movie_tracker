@@ -5,6 +5,7 @@ class CreateMovies < ActiveRecord::Migration
             t.string :director
             t.string :genre
             t.integer :release_date
+            t.integer :user_id
         end
     end
 end
