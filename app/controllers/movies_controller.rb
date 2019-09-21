@@ -6,7 +6,6 @@ class MoviesController < ApplicationController
     end
 
     post '/movies' do
-        binding.pry
         movie = Movie.new(params[:movie])
         redirect to "/movies/#{movie.slug}"
     end
@@ -18,6 +17,17 @@ class MoviesController < ApplicationController
     get '/movies/:slug' do
         @movie = Movie.find_by_slug(params[:slug])
         erb :"movies/show"
+    end
+
+    get '/movies/:slug/edit' do
+        @movie = Movie.find_by_slug(params[:slug])
+        erb :"movies/edit"
+    end
+
+    patch '/movies/:slug' do
+        movie =  Movie.find_by_slug(params[:slug])
+        movie.update(params[:movie])
+        redirect to "/movies/#{movie.slug}"
     end
 
 end
