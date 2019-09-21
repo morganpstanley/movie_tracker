@@ -1,11 +1,30 @@
 class UsersController < ApplicationController
 
+    get '/users/login' do
+        if logged_in?
+            user = User.find(session[:id])
+            redirect to "/users/#{user.slug}"
+        else
+            erb :'users/login'
+        end
+    end
+
+    post 'users/login' do
+        user = User.find_by(username: params:[:username])
+        if user && user.authenticate(params[:password])
+            session[:id] = user.id
+            redirect to "/users/#{user.slug}"
+        else
+            redirect to '/users/login'
+        end
+    end
+    
     get '/users' do
         @users = User.all 
         erb :'users/index'
     end
 
-    post '/users' do
+    post '/users/new' do
         user = User.create(params[:user])
         redirect to "/users/#{user.slug}"
     end

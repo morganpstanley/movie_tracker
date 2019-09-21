@@ -3,7 +3,7 @@ Edit your profile! Wow, we have so many features!:
 <form action="/users/<%=@user.slug%>" method="post">
 <input type="hidden" id="hidden" name="_method" value="patch">
     Username:<input type="text" name="user[username]" value="<%=@user.username%>"><br>
-    Password:<input type="password" name="user[password]" value="<%=@user.password%>"><br>
+    Password:<input type="password" name="user[password]"><br>
     <input type="submit" name="submit">
 </form>
 

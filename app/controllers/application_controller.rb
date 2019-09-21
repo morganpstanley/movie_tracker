@@ -5,7 +5,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
 
     get '/' do
-        erb :index
+        redirect to 'users/login'
     end
 
     helpers do
