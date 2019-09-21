@@ -8,3 +8,11 @@ Edit your movie! Wow, we have so many features!:
     Release Date:<input type="text" name="movie[release_date]" value="<%=@movie.release_date%>"><br>
     <input type="submit" name="submit">
 </form>
+
+<br>
+
+<form action="/movies/<%=@movie.slug%>/delete" method="post">
+<input type="hidden" id="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete This Movie" />
+</form>
+

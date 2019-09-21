@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
     end
 
     post '/movies' do
-        movie = Movie.new(params[:movie])
+        movie = Movie.create(params[:movie])
         redirect to "/movies/#{movie.slug}"
     end
 
@@ -16,18 +16,23 @@ class MoviesController < ApplicationController
 
     get '/movies/:slug' do
         @movie = Movie.find_by_slug(params[:slug])
-        erb :"movies/show"
+        erb :'movies/show'
     end
 
     get '/movies/:slug/edit' do
         @movie = Movie.find_by_slug(params[:slug])
-        erb :"movies/edit"
+        erb :'movies/edit'
     end
 
     patch '/movies/:slug' do
         movie =  Movie.find_by_slug(params[:slug])
         movie.update(params[:movie])
         redirect to "/movies/#{movie.slug}"
+    end
+
+    delete '/movies/:slug/delete' do
+        Movie.find_by_slug(params[:slug]).delete
+        redirect to '/movies'
     end
 
 end
