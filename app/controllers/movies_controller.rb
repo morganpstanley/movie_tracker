@@ -11,11 +11,16 @@ class MoviesController < ApplicationController
     end
 
     get '/movies/new' do
-        erb :'movies/new'
+        if logged_in?
+            erb :'movies/new'
+        else
+            redirect to '/movies'
+        end
     end
 
     get '/movies/:slug' do
         @movie = Movie.find_by_slug(params[:slug])
+        @current_user = current_user
         erb :'movies/show'
     end
 
