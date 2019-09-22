@@ -7,7 +7,7 @@ Rotten Potatoes(tm): <%=rand(100)%>% Fresh
 
 <br><br>
 
-<form action="/movies/<%=@movie.slug%>/edit">
-    <input type="submit" value="Edit" />
-</form>
+<%if @current_user.movies.include?(@movie)%>
+    <a href="/movies/<%=@movie.slug%>/edit"><button>Edit</button></a>
+<%end%>
 
