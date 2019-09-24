@@ -1,4 +1,8 @@
-<h1> <%=@user.username%> </h1>
+<%if @user == @current_user%>
+     <h1>Your Movies</h1>
+<%else%>
+    <h1> <%=@user.username%> </h1>
+<%end%>
 
 <%@user.movies.each do |m|%>
     <a href="/movies/<%=m.slug%>"><%=m.name%></a><br>
