@@ -5,3 +5,7 @@ Create a profile:
     Password:<input type="text" name="user[password]"><br>
     <input type="submit" name="submit">
 </form>
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>

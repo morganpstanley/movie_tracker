@@ -1,4 +1,7 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+    use Rack::Flash
 
     get '/users/login' do
         if logged_in?
@@ -24,9 +27,14 @@ class UsersController < ApplicationController
     end
 
     post '/users/new' do
+        if params[:user][:username].empty? || params[:user][:password].empty?
+            flash[:message] = "ERROR: You need to include both a username and a password"
+            redirect to '/users/new'
+        else    
         user = User.create(params[:user])
         session[:id] = user.id
         redirect to "/users/#{user.slug}"
+        end
     end
 
     get '/users/new' do
@@ -62,6 +70,11 @@ class UsersController < ApplicationController
             User.find_by_slug(params[:slug]).delete
             redirect to '/users'
         end
+    end
+
+    get '/logout' do
+        session.clear
+        redirect to '/users/login'
     end
 
 end

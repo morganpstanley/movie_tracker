@@ -1,18 +1,25 @@
 Edit your movie! Wow, we have so many features!:
 
 <form action="/movies/<%=@movie.slug%>" method="post">
-<input type="hidden" id="hidden" name="_method" value="patch">
-    Name:<input type="text" name="movie[name]" value="<%=@movie.name%>"><br>
-    Director:<input type="text" name="movie[director]" value="<%=@movie.director%>"><br>
-    Genre:<input type="text" name="movie[genre]" value="<%=@movie.genre%>"><br>
-    Release Date:<input type="text" name="movie[release_date]" value="<%=@movie.release_date%>"><br>
+    <input type="hidden" id="hidden" name="_method" value="patch"> Name:
+    <input type="text" name="movie[name]" value="<%=@movie.name%>">
+    <br> Director:
+    <input type="text" name="movie[director]" value="<%=@movie.director%>">
+    <br> Genre:
+    <input type="text" name="movie[genre]" value="<%=@movie.genre%>">
+    <br> Release Date:
+    <input type="text" name="movie[release_date]" value="<%=@movie.release_date%>">
+    <br>
     <input type="submit" name="submit">
 </form>
 
 <br>
 
 <form action="/movies/<%=@movie.slug%>/delete" method="post">
-<input type="hidden" id="hidden" name="_method" value="delete">
+    <input type="hidden" id="hidden" name="_method" value="delete">
     <input type="submit" value="Delete This Movie" />
 </form>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>

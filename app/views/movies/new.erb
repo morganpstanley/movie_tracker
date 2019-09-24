@@ -7,3 +7,7 @@ Add your movie! Wow, we have so many features!:
     Release Date:<input type="text" name="movie[release_date]"><br>
     <input type="submit" name="submit">
 </form>
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
