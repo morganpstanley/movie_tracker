@@ -11,7 +11,11 @@ ______________________________________________________________________________
 ______________________________________________________________________________
 <br><br>
 
- <a href="/movies"><button>Movies</button></a><a href="/users"><button>Users</button></a>
+ <a href="/movies"><button>Movies</button></a>
+ <a href="/users"><button>Users</button></a>
+ <%if logged_in?%>
+    <a href="/logout"><button>Logout</button></a>
+<%end%>
 
 <%if logged_in?%>
     <p>You are currently logged in! Smart move!</p>
