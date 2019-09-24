@@ -13,6 +13,7 @@
 <%if @user == @current_user%>
   <a href="/users/<%=@user.slug%>/edit"><button>Edit Your Profile</button></a>
 <%end%>
+
 <%if @user == @current_user%>
   <a href="/movies/new"><button>Add a Movie</button></a>
 <%end%>

@@ -1,7 +1,8 @@
 Edit your movie! Wow, we have so many features!:
 
 <form action="/movies/<%=@movie.slug%>" method="post">
-    <input type="hidden" id="hidden" name="_method" value="patch"> Name:
+    <input type="hidden" id="hidden" name="_method" value="patch"> 
+    Name:
     <input type="text" name="movie[name]" value="<%=@movie.name%>">
     <br> Director:
     <input type="text" name="movie[director]" value="<%=@movie.director%>">
