@@ -6,8 +6,17 @@ class MoviesController < ApplicationController
     end
 
     post '/movies' do
-        movie = Movie.create(params[:movie])
-        redirect to "/movies/#{movie.slug}"
+        if params[:movie][:name].empty? || params[:movie][:director].empty? || params[:movie][:release_date].empty? || params[:movie][:genre].empty?
+            flash[:message] = "ERROR: All fields must be filled"
+            redirect to '/movies/new'
+        elsif params[:movie][:release_date].to_i == 0
+            flash[:message] = "ERROR: Release date must be an integer"
+            redirect to '/movies/new'
+        else
+            movie = Movie.create(params[:movie])
+            current_user.movies << movie
+            redirect to "/movies/#{movie.slug}"
+        end
     end
 
     get '/movies/new' do
@@ -26,13 +35,25 @@ class MoviesController < ApplicationController
 
     get '/movies/:slug/edit' do
         @movie = Movie.find_by_slug(params[:slug])
-        erb :'movies/edit'
+        if current_user.movies.include?(@movie)
+            erb :'movies/edit'
+        else
+            redirect to '/movies'
+        end
     end
 
     patch '/movies/:slug' do
         movie =  Movie.find_by_slug(params[:slug])
+        if params[:movie][:name].empty? || params[:movie][:director].empty? || params[:movie][:release_date].empty? || params[:movie][:genre].empty?
+            flash[:message] = "ERROR: All fields must be filled"
+            redirect to "/movies/#{movie.slug}/edit"
+        elsif params[:movie][:release_date].to_i == 0
+            flash[:message] = "ERROR: Release date must be an integer"
+            redirect to "/movies/#{movie.slug}/edit"
+        else
         movie.update(params[:movie])
         redirect to "/movies/#{movie.slug}"
+        end
     end
 
     delete '/movies/:slug/delete' do
