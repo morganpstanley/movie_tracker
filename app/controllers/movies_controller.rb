@@ -1,8 +1,12 @@
 class MoviesController < ApplicationController
 
     get '/movies' do
-        @movies = Movie.all
-        erb :'movies/index'
+        if logged_in?
+            @movies = Movie.all
+            erb :'movies/index'
+        else
+            redirect to '/users/login'
+        end
     end
 
     post '/movies' do
@@ -23,14 +27,17 @@ class MoviesController < ApplicationController
         if logged_in?
             erb :'movies/new'
         else
-            redirect to '/movies'
+            redirect to '/users/login'
         end
     end
 
     get '/movies/:slug' do
-        @movie = Movie.find_by_slug(params[:slug])
-        @current_user = current_user
-        erb :'movies/show'
+        if logged_in?
+            @movie = Movie.find_by_slug(params[:slug])
+            erb :'movies/show'
+        else
+            redirect to '/users/login'
+        end
     end
 
     get '/movies/:slug/edit' do
@@ -38,6 +45,7 @@ class MoviesController < ApplicationController
         if current_user.movies.include?(@movie)
             erb :'movies/edit'
         else
+            flash[:message] = "ERROR: You do not have access to this webpage"
             redirect to '/movies'
         end
     end
