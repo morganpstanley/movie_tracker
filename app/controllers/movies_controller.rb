@@ -65,7 +65,10 @@ class MoviesController < ApplicationController
     end
 
     delete '/movies/:slug/delete' do
-        Movie.find_by_slug(params[:slug]).delete
+        movie = Movie.find_by_slug(params[:slug])
+        if current_user.movies.include?(movie)
+            movie.delete
+        end
         redirect to '/movies'
     end
 
