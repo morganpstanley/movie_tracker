@@ -5,7 +5,8 @@ Genre: <%=@movie.genre%><br>
 Release Date: <%=@movie.release_date%><br>
 Rotten Potatoes(tm): <%=rand(100)%>% Fresh
 
-<br><br>
+<br>
+<br>
 
 <%if current_user.movies.include?(@movie)%>
     <a href="/movies/<%=@movie.slug%>/edit"><button>Edit</button></a>

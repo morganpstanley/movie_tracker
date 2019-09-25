@@ -1,11 +1,9 @@
 Edit your profile! Wow, we have so many features!:
 
 <form action="/users/<%=@user.slug%>" method="post">
-    <input type="hidden" id="hidden" name="_method" value="patch"> Username:
-    <input type="text" name="user[username]" value="<%=@user.username%>">
-    <br> Password:
-    <input type="password" name="user[password]">
-    <br>
+    <input type="hidden" id="hidden" name="_method" value="patch"> 
+    Username: <input type="text" name="user[username]" value="<%=@user.username%>"> <br>
+    Password: <input type="password" name="user[password]"> <br>
     <input type="submit" name="submit">
 </form>
 
@@ -15,6 +13,8 @@ Edit your profile! Wow, we have so many features!:
     <input type="hidden" id="hidden" name="_method" value="delete">
     <input type="submit" value="Delete Your Profile" />
 </form>
+
+<br>
 
 <% if flash.has?(:message) %>
     <%= flash[:message] %>

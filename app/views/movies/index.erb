@@ -2,6 +2,8 @@
     <a href="/movies/<%=m.slug%>"> <%=m.name%> </a> <br>
 <%end%>
 
+<br>
+
 <% if flash.has?(:message) %>
     <%= flash[:message] %>
 <% end %>
