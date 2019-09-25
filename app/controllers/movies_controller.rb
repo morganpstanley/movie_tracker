@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
 
     get '/movies' do
         if logged_in?
-            @movies = Movie.all
+            @movies = Movie.all.sort_by{ |m| m.name}
             erb :'movies/index'
         else
             redirect to '/users/login'
