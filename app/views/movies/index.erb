@@ -1,3 +1,7 @@
 <%@movies.each do |m|%>
     <a href="/movies/<%=m.slug%>"> <%=m.name%> </a> <br>
 <%end%>
+
+<% if flash.has?(:message) %>
+    <%= flash[:message] %>
+<% end %>
