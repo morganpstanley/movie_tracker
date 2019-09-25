@@ -9,6 +9,12 @@
 <%end%>
 
 <br>
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<br>
 <br>
 
 <%if @user == current_user%>

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     get '/users/login' do
         if logged_in?
             redirect to "/users/#{current_user.slug}"
+            flash[:message] = "ERROR: You are already logged in"
         else
             erb :'users/login'
         end
@@ -46,6 +47,7 @@ class UsersController < ApplicationController
         if !logged_in?
             erb :'users/new'
         else
+            flash[:message] = "ERROR: You are already logged in"
             redirect to "/users/#{current_user.slug}"
         end
     end
@@ -64,6 +66,7 @@ class UsersController < ApplicationController
             @user = User.find_by_slug(params[:slug])
             erb :'users/edit'
         else
+            flash[:message] = "ERROR: Users can only edit their own profile"
             redirect to '/users'
         end
     end
