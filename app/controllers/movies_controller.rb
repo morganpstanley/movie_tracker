@@ -1,12 +1,9 @@
 class MoviesController < ApplicationController
 
     get '/movies' do
-        if logged_in?
-            @movies = Movie.all.sort_by{ |m| m.name}
-            erb :'movies/index'
-        else
-            redirect to '/users/login'
-        end
+        redirect_if_not_logged_in
+        @movies = Movie.all.sort_by{ |m| m.name}
+        erb :'movies/index'
     end
 
     post '/movies' do
@@ -24,20 +21,14 @@ class MoviesController < ApplicationController
     end
 
     get '/movies/new' do
-        if logged_in?
-            erb :'movies/new'
-        else
-            redirect to '/users/login'
-        end
+        redirect_if_not_logged_in
+        erb :'movies/new'
     end
 
     get '/movies/:slug' do
-        if logged_in?
-            @movie = Movie.find_by_slug(params[:slug])
-            erb :'movies/show'
-        else
-            redirect to '/users/login'
-        end
+        redirect_if_not_logged_in
+        @movie = Movie.find_by_slug(params[:slug])
+        erb :'movies/show'
     end
 
     get '/movies/:slug/edit' do
@@ -52,6 +43,9 @@ class MoviesController < ApplicationController
 
     patch '/movies/:slug' do
         movie =  Movie.find_by_slug(params[:slug])
+        if !current_user.movies.include?(movie)
+            redirect to "/movies"
+        end
         if params[:movie][:name].empty? || params[:movie][:director].empty? || params[:movie][:release_date].empty? || params[:movie][:genre].empty?
             flash[:message] = "ERROR: All fields must be filled"
             redirect to "/movies/#{movie.slug}/edit"
