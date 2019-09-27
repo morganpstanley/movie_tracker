@@ -24,15 +24,16 @@ class UsersController < ApplicationController
     end
     
     get '/users' do
-        if logged_in?
-            @users = User.all 
-            erb :'users/index'
-        else
-            redirect to '/users/login'
-        end
+        redirect_if_not_logged_in
+        @users = User.all 
+        erb :'users/index'
     end
 
     post '/users/new' do
+        if User.find_by(username: params[:user][:username])
+            flash[:message] = "That username is taken"
+            redirect to '/users/new'
+        end
         if params[:user][:username].empty? || params[:user][:password].empty?
             flash[:message] = "ERROR: You need to include both a username and a password"
             redirect to '/users/new'
@@ -53,12 +54,9 @@ class UsersController < ApplicationController
     end
 
     get '/users/:slug' do
-        if logged_in?
-            @user = User.find_by_slug(params[:slug])
-            erb :'users/show'
-        else
-            redirect to '/users/login'
-        end
+        redirect_if_not_logged_in
+        @user = User.find_by_slug(params[:slug])
+        erb :'users/show'
     end
 
     get '/users/:slug/edit' do
